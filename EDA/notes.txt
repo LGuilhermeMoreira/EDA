@@ -1,0 +1,11 @@
+testar todas as classes
+em relaçao a sobrecarga de operadores
+
+criar a função para transformar tudo em um vetor de pessoas
+
+crias as 3 arvores
+
+criar a serch<Nome,CPF,data>
+
+primeiro CPF Não se repete na árvore
+
