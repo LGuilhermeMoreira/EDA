@@ -52,23 +52,8 @@ AVL_tree<Nome>* build_tree_nome(vector<Pessoa*> v){
     return tree;
 }
 
-/*0
-vector<Pessoa*> search(string key, char flag)
-{   
 
-    if(flag == 'c'){
 
-    }
-
-    if(flag == 'd'){
-
-    }
-
-    if(flag == 'n'){
-
-    }
-}
-*/
 
 
 

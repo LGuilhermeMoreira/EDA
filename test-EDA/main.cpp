@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-   vector<Pessoa*> v = string_to_vector("data.csv");
-   AVL_tree<Data>* tree_data = build_tree_data(v);
-   tree_data->bshow();
+  AVL_tree<Nome>* tree = build_tree_nome(string_to_vector("data.csv"));
+
+  tree->bshow();
 }
