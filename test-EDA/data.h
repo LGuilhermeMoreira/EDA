@@ -19,6 +19,13 @@ public:
         mes = std::stoi(data[1]);
         ano = std::stoi(data[2]);        
     }
+
+    Data(int dia, int mes, int ano)
+    {
+        this->dia = dia;
+        this->mes = mes;
+        this->ano = ano;
+    }
     Data(const Data &d)
     {
         this->dia = d.dia;

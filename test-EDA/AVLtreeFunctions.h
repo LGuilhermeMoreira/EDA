@@ -1,12 +1,15 @@
-#include "avl.h"
+#ifndef AVL_TREE_FUNCTIONS_H
+#define AVL_TREE_FUNCTIONS_H
+
 #include "functions.h"
 #include "cpf.h"
 #include "data.h"
 #include "nome.h"
+#include "pessoa.h"
+#include "avl.h"
 #include <iostream>
 #include <vector>
 using namespace std;
-
 
 vector<Pessoa*> string_to_vector(string path){
    vector<Pessoa*> v;
@@ -53,9 +56,6 @@ AVL_tree<Nome>* build_tree_nome(vector<Pessoa*> v){
 
 
 
-int main()
-{
-   vector<Pessoa*> v = string_to_vector("data.csv");
-   AVL_tree<Data>* tree_data = build_tree_data(v);
-   tree_data->bshow();
-}
+
+
+#endif

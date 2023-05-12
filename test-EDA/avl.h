@@ -208,6 +208,13 @@ private:
 
         if (key == p->key)
         {
+            Node<T> *new_node = new Node<T>();
+            new_node->key = key;
+            new_node->pessoa = pessoa;
+            new_node->height = p->height;
+            new_node->left = nullptr;
+            new_node->right = nullptr;
+            p->next = new_node;
             return p;
         }
 
@@ -235,6 +242,17 @@ private:
             return;
         }
         std::cout << node->key;
+        if (node->next != nullptr)
+        {
+            Node<T> *aux = node->next;
+            int cont = 1;
+            while (aux != nullptr)
+            {
+                cont++;
+                aux = aux->next;
+            }
+            std::cout << " (" << cont << "x)";
+        }
         std::cout << std::endl;
         if (node != nullptr && (node->left != nullptr || node->right != nullptr))
             _bshow(node->left, heranca + "l");

@@ -23,7 +23,6 @@ public:
         this->nome = Nome(nome + " " + sobrenome);
         this->cpf = CPF(cpf);
         this->endereco = endereco; 
-
     }
 
     // mostra os dados da pessoa

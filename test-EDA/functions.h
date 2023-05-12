@@ -6,11 +6,6 @@
 #include <vector>
 #include <sstream>
 #include <map>
-#include "pessoa.h"
-#include "avl.h"
-#include "cpf.h"
-#include "data.h"
-#include "nome.h"
 
 using namespace std;
 
@@ -23,7 +18,6 @@ string file_to_string(const string& path) {
              << path << "'" << endl;
         exit(EXIT_FAILURE);
     }
-    ss << "\n";
     ss << input_file.rdbuf();
     return ss.str();
 }
@@ -40,4 +34,6 @@ vector<string> split(const string& s, char delimiter)
    }
    return tokens;
 }
+
+
 #endif
