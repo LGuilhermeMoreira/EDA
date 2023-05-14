@@ -52,23 +52,29 @@ AVL_tree<Nome>* build_tree_nome(vector<Pessoa*> v){
     return tree;
 }
 
-/*0
-vector<Pessoa*> search(string key, char flag)
-{   
-
-    if(flag == 'c'){
-
+//criando funções para saber se o CPF está na arvore
+vector<CPF> string_to_cpf(string path){
+    string file = file_to_string(path);
+    vector<string> lines = split(file, '\n');
+    vector<CPF> v;
+    for(int i = 0; i < lines.size(); i++){
+        vector<string> words = split(lines[i], ',');
+        CPF cpf(words[0]);
+        v.push_back(cpf);
     }
-
-    if(flag == 'd'){
-
-    }
-
-    if(flag == 'n'){
-
-    }
+    return v;
 }
-*/
+
+//cria funções para saber se o CPF está na vector
+bool cpf_in_vector(vector<CPF> v, CPF cpf){
+    for(int i = 0; i < v.size(); i++){
+        if(v[i] == cpf){
+            return true;
+        }
+    }
+    return false;
+}
+
 
 
 

@@ -10,7 +10,6 @@ using namespace std;
 
 int main()
 {
-  AVL_tree<Nome>* tree = build_tree_nome(string_to_vector("data.csv"));
-
-  tree->bshow();
+   vector<CPF> v = string_to_cpf("data.csv");
+   cout << cpf_in_vector(v, CPF("388.624.732-57")) << endl;
 }
