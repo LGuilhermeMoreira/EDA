@@ -18,6 +18,8 @@ string file_to_string(const string& path) {
              << path << "'" << endl;
         exit(EXIT_FAILURE);
     }
+    string line;
+    getline(input_file, line); // pula a primeira linha
     ss << input_file.rdbuf();
     return ss.str();
 }

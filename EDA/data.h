@@ -15,8 +15,8 @@ public:
     Data(std::string dataCompleta)
     {
         std::vector<std::string> data = split(dataCompleta, '/');
-        dia = std::stoi(data[0]);
-        mes = std::stoi(data[1]);
+        dia = std::stoi(data[1]);
+        mes = std::stoi(data[0]);
         ano = std::stoi(data[2]);        
     }
 

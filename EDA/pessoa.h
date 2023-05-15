@@ -28,6 +28,7 @@ public:
     // mostra os dados da pessoa
     void print()
     {
+        std::cout << "=======================================" << std::endl;
         std::cout << "Nome: " << nome << std::endl;
         std::cout << "CPF: " << cpf << std::endl;
         std::cout << "Endereco: " << endereco << std::endl;

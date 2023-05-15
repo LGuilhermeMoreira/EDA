@@ -17,7 +17,7 @@ int main()
     AVL_tree<CPF>* cpf_tree = build_tree_cpf(string_to_vector("data.csv"));
     AVL_tree<Nome>* nome_tree = build_tree_nome(string_to_vector("data.csv"));
     AVL_tree<Data>* data_tree = build_tree_data(string_to_vector("data.csv"));
-
+    system("cls||clear");
     while(true){
         cout << endl << "1 - add person" << endl
             << "2 - remove person" << endl
@@ -37,16 +37,26 @@ int main()
 
         else if(num == 1){
             //criar uma pessoa
-            string cpf, nome, sobrenome, nascimento, endereco;
+            system("cls||clear");
+            string cpf, nome, sobrenome, endereco;
+            int dia, mes, ano;
             cout << "Digite o CPF: ";
             getline(cin, cpf);
             cout << "Digite o nome: ";
             getline(cin, nome);
             cout << "Digite o sobrenome: ";
             getline(cin, sobrenome);
-            cout << "Digite a data de nascimento: ";
-            getline(cin, nascimento);
-            cout << "Digite o endereco: ";
+            cout << "Digite o dia de nascimento: ";
+            cin >> dia;
+            cin.ignore();
+            cout << "Digite o mes de nascimento: ";
+            cin >> mes;
+            cin.ignore();
+            cout << "Digite o ano de nascimento: ";
+            cin >> ano;
+            cin.ignore();
+            string nascimento = to_string(mes) + "/" + to_string(dia) + "/" + to_string(ano);
+            cout << "Digite a cidade: ";
             getline(cin, endereco);
             Pessoa* pessoa = new Pessoa(cpf, nome, sobrenome, nascimento, endereco);
             //adicionar a pessoa nas 3 arvores
@@ -56,15 +66,25 @@ int main()
         }
 
         else if(num == 2){
-            string cpf, nome, sobrenome, nascimento;
+            system("cls||clear");
+            string cpf, nome, sobrenome;
+            int dia, mes, ano;
             cout << "Digite o CPF: ";
             getline(cin, cpf);
             cout << "Digite o nome: ";
             getline(cin, nome);
             cout << "Digite o sobrenome: ";
             getline(cin, sobrenome);
-            cout << "Digite a data de nascimento: ";
-            getline(cin, nascimento);
+             cout << "Digite o dia de nascimento: ";
+            cin >> dia;
+            cin.ignore();
+            cout << "Digite o mes de nascimento: ";
+            cin >> mes;
+            cin.ignore();
+            cout << "Digite o ano de nascimento: ";
+            cin >> ano;
+            cin.ignore();
+            string nascimento = to_string(mes) + "/" + to_string(dia) + "/" + to_string(ano);
             //remove das arvores
             cpf_tree->remove(CPF(cpf));
             nome_tree->remove(Nome(nome + " " + sobrenome));
@@ -72,18 +92,22 @@ int main()
         }
 
         else if(num == 3){
+            system("cls||clear");
             cpf_tree->bshow();
         }
 
         else if(num == 4){
+            system("cls||clear");
             nome_tree->bshow();
         }
 
         else if(num == 5){
+            system("cls||clear");
             data_tree->bshow();
         }
 
         else if(num == 6){
+            system("cls||clear");
             string cpf;
             cout << "Digite o CPF: ";
             getline(cin, cpf);
@@ -92,6 +116,7 @@ int main()
         }
 
         else if(num == 7){
+            system("cls||clear");
             string nomeCompleto;
             cout << "Digite o nome: ";
             getline(cin, nomeCompleto);
@@ -100,6 +125,7 @@ int main()
         }
 
         else if(num == 8){
+            system("cls||clear");
             string datainicio, datafim;
             cout << "Digite a data de inicio: ";
             getline(cin, datainicio);

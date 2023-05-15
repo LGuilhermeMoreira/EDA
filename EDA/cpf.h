@@ -44,6 +44,14 @@ public:
         return this->cpf > c.cpf;
     }
 
+    bool operator<=(const CPF &c) const{
+        return this->cpf <= c.cpf;
+    }
+
+    bool operator>=(const CPF &c) const{
+        return this->cpf >= c.cpf;
+    }
+
     friend std::ostream &operator<<(std::ostream &os, const CPF &c){
         os << c.cpf;
         return os;
