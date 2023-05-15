@@ -63,7 +63,73 @@ public:
 
     void _vector_to_tree(std::vector<T> v)
     {
-        root =  vector_to_tree_rec(v, 0, v.size() - 1);
+        root = vector_to_tree_rec(v, 0, v.size() - 1);
+    }
+
+    void search(T key, char flag)
+    {
+        if (flag == 'c')
+        {
+            Node<T> *node = root;
+            while (node != nullptr)
+            {
+                if (node->key == key)
+                {
+                    node->pessoa->print();
+                    Node<T> *aux = node->next;
+                    while (aux != nullptr)
+                    {
+                        aux->pessoa->print();
+                        aux = aux->next;
+                    }
+                    return;
+                }
+                else if (node->key > key)
+                {
+                    node = node->left;
+                }
+                else
+                {
+                    node = node->right;
+                }
+            }
+        }
+
+        else if (flag == 'd'){
+            /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
+            // Data initial = Data(key[0]);
+            // Data final = Data(key[1]);
+            // Node<T> *node = root;
+            // while(node != nullptr){
+            //     if(node->key >= initial && node->key <= final){
+            //         inorder_rec(node,initial,final);
+            //         break;
+            //     }
+            //     else if(node->key < initial){
+            //         node = node->left;
+            //     }
+            //     else{
+            //         node = node->right;
+            //     }
+            // }
+        }
+
+        else if (flag == 'n'){ 
+            /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
+            Node<T> *node = root;
+            while(node != nullptr){
+                if(key == node->key){
+                    inorder_rec(node, key);
+                    break;
+                }
+                else if(node->key > key){
+                    node = node->left;
+                }
+                else{
+                    node = node->right;
+                }
+            }
+        }
     }
 
 private:
@@ -316,8 +382,43 @@ private:
         }
     }
 
+    void inorder_rec(Node<T> *node, T key){
+        if(node != nullptr){
+            inorder_rec(node->left, key);
+            if(key == node->key){
+                node->pessoa->print();
+
+                if(node->next != nullptr){
+                    Node<T> *aux = node->next;
+                    while(aux != nullptr){
+                        aux->pessoa->print();
+                        aux = aux->next;
+                    }
+                }
+            }
+            inorder_rec(node->right, key);
+        }
+    }
+
+    void inorder_rec(Node<T> *node, T initial, T final){
+        if(node != nullptr){
+            inorder_rec(node->left, initial, final);
+            if(node->key >= initial && node->key <= final){
+                node->pessoa->print();
+                if(node->next != nullptr){
+                    Node<T> *aux = node->next;
+                    while(aux != nullptr){
+                        aux->pessoa->print();
+                        aux = aux->next;
+                    }
+                }
+            }
+            inorder_rec(node->right, initial, final);
+        }
+    }
+
     //? cria as árvores, entretanto não trata os nós iguais
-    Node<T> * vector_to_tree_rec(std::vector<T> &v, int start, int end)
+    Node<T> *vector_to_tree_rec(std::vector<T> &v, int start, int end)
     {
         if (start > end)
             return nullptr;
@@ -331,41 +432,7 @@ private:
         return node;
     }
 
-    /*Node<T> * vector_to_tree_rec(std::vector<T> &v, int start, int end)
-    {
-        if (start > end)
-            return nullptr;
-
-        int mid = (start + end) / 2;
-        Node<T> *node = new Node<T>();
-        node->key = v[mid];
-        node->left = vector_to_tree_rec(v, start, mid - 1);
-        node->right = vector_to_tree_rec(v, mid + 1, end);
-        node->height = 1 + std::max(height(node->left), height(node->right));
-
-        // Procura por um nó com a mesma chave e anexa ao ponteiro next, caso exista
-        Node<T> *current = node;
-        while(v[mid+1] == v[mid]){
-            while (current != nullptr) {
-                if (current->key == node->key && current != node) {
-                    current->next = node;
-                    break;
-                }
-                if (current->key > node->key) {
-                    current = current->left;
-                } else {
-                    current = current->right;
-                }
-            }
-        }
-
-        return node;
-    }*/
-
-
-    /*void TrataArvore(Node<T> *node)
-    {
-    }*/
+    
 };
 
 #endif

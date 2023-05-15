@@ -8,8 +8,10 @@
 #include <vector>
 using namespace std;
 
+// montar o sistema de busca 
 int main()
 {
-   vector<CPF> v = string_to_cpf("data.csv");
-   cout << cpf_in_vector(v, CPF("388.624.732-57")) << endl;
+    //system.cls("")
+    AVL_tree<Nome>* Nome_tree = build_tree_nome(string_to_vector("data.csv"));
+    Nome_tree->search(Nome("Ju"),'n');
 }

@@ -52,7 +52,7 @@ AVL_tree<Nome>* build_tree_nome(vector<Pessoa*> v){
     return tree;
 }
 
-//criando funções para saber se o CPF está na arvore
+//criando função para pegar todos os CPF
 vector<CPF> string_to_cpf(string path){
     string file = file_to_string(path);
     vector<string> lines = split(file, '\n');
@@ -74,9 +74,5 @@ bool cpf_in_vector(vector<CPF> v, CPF cpf){
     }
     return false;
 }
-
-
-
-
 
 #endif
