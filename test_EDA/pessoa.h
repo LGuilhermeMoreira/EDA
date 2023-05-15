@@ -33,7 +33,6 @@ public:
         std::cout << "CPF: " << cpf << std::endl;
         std::cout << "Endereco: " << endereco << std::endl;
         std::cout << "Data de nascimento: " << nascimento.dia << "/" << nascimento.mes << "/" << nascimento.ano << std::endl;
-        std::cout << "=======================================" << std::endl;
     }
 };
 

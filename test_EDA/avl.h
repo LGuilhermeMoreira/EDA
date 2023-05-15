@@ -2,7 +2,11 @@
 #define AVL_H
 
 #include "node.h"
+#include "cpf.h"
+#include "data.h"
+#include "nome.h"
 #include "pessoa.h"
+#include "functions.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -66,10 +70,11 @@ public:
         root = vector_to_tree_rec(v, 0, v.size() - 1);
     }
 
-    void search(T key, char flag)
+    void search(std::string key, char flag)
     {
         if (flag == 'c')
         {
+            T cpf = T(key);
             Node<T> *node = root;
             while (node != nullptr)
             {
@@ -97,32 +102,34 @@ public:
 
         else if (flag == 'd'){
             /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
-            // Data initial = Data(key[0]);
-            // Data final = Data(key[1]);
-            // Node<T> *node = root;
-            // while(node != nullptr){
-            //     if(node->key >= initial && node->key <= final){
-            //         inorder_rec(node,initial,final);
-            //         break;
-            //     }
-            //     else if(node->key < initial){
-            //         node = node->left;
-            //     }
-            //     else{
-            //         node = node->right;
-            //     }
-            // }
+            std::vector<std::string> data = split(key, ' ');
+            T initial = T(data[0]);
+            T final = T(data[1]);
+            Node<T> *node = root;
+            while(node != nullptr){
+                if(node->key >= initial && node->key <= final){
+                    inorder_rec(node,initial,final);
+                    break;
+                }
+                else if(node->key < initial){
+                    node = node->left;
+                }
+                else{
+                    node = node->right;
+                }
+            }
         }
 
         else if (flag == 'n'){ 
             /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
+            T nome = T(key);
             Node<T> *node = root;
             while(node != nullptr){
-                if(key == node->key){
-                    inorder_rec(node, key);
+                if(nome == node->key){
+                    inorder_rec(node, nome);
                     break;
                 }
-                else if(node->key > key){
+                else if(node->key > nome){
                     node = node->left;
                 }
                 else{
