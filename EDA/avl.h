@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stack>
 
 // TODO: criar uma função que transforme um vetor em uma arvore AVL
 
@@ -100,39 +101,73 @@ public:
             }
         }
 
-        else if (flag == 'd'){
+        else if (flag == 'd')
+        {
+            
             /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
             std::vector<std::string> data = split(key, ' ');
+            std::cout << data[0] << " " << data[1] << std::endl;
             T initial = T(data[0]);
             T final = T(data[1]);
             Node<T> *node = root;
-            while(node != nullptr){
-                if(node->key >= initial && node->key <= final){
-                    inorder_rec(node,initial,final);
-                    break;
-                }
-                else if(node->key < initial){
-                    node = node->left;
-                }
-                else{
-                    node = node->right;
+            std::stack<Node<T> *> pilha;
+            pilha.push(node);
+            while (!pilha.empty())
+            {
+                Node<T> *reference = pilha.top();
+                pilha.pop();
+
+                if (reference != nullptr)
+                {
+                    if (reference->key < initial)
+                    {
+                        pilha.push(reference->right);
+                    }
+                    else if (reference->key > final)
+                    {
+                        pilha.push(reference->left);
+                    }
+                    else
+                    {
+                        if (reference->key == initial)
+                        {
+                            reference->pessoa->print();
+                            pilha.push(reference->right);
+                        }
+                        else if (reference->key == final)
+                        {
+                            reference->pessoa->print();
+                            pilha.push(reference->left);
+                        }
+                        else
+                        {
+                            reference->pessoa->print();
+                            pilha.push(reference->left);
+                            pilha.push(reference->right);
+                        }
+                    }
                 }
             }
         }
 
-        else if (flag == 'n'){ 
+        else if (flag == 'n')
+        {
             /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
             T nome = T(key);
             Node<T> *node = root;
-            while(node != nullptr){
-                if(nome == node->key){
+            while (node != nullptr)
+            {
+                if (nome == node->key)
+                {
                     inorder_rec(node, nome);
                     break;
                 }
-                else if(node->key > nome){
+                else if (node->key > nome)
+                {
                     node = node->left;
                 }
-                else{
+                else
+                {
                     node = node->right;
                 }
             }
@@ -389,15 +424,20 @@ private:
         }
     }
 
-    void inorder_rec(Node<T> *node, T key){
-        if(node != nullptr){
+    void inorder_rec(Node<T> *node, T key)
+    {
+        if (node != nullptr)
+        {
             inorder_rec(node->left, key);
-            if(key == node->key){
+            if (key == node->key)
+            {
                 node->pessoa->print();
 
-                if(node->next != nullptr){
+                if (node->next != nullptr)
+                {
                     Node<T> *aux = node->next;
-                    while(aux != nullptr){
+                    while (aux != nullptr)
+                    {
                         aux->pessoa->print();
                         aux = aux->next;
                     }
@@ -407,14 +447,19 @@ private:
         }
     }
 
-    void inorder_rec(Node<T> *node, T initial, T final){
-        if(node != nullptr){
+    void inorder_rec(Node<T> *node, T initial, T final)
+    {
+        if (node != nullptr)
+        {
             inorder_rec(node->left, initial, final);
-            if(node->key >= initial && node->key <= final){
+            if (node->key >= initial && node->key <= final)
+            {
                 node->pessoa->print();
-                if(node->next != nullptr){
+                if (node->next != nullptr)
+                {
                     Node<T> *aux = node->next;
-                    while(aux != nullptr){
+                    while (aux != nullptr)
+                    {
                         aux->pessoa->print();
                         aux = aux->next;
                     }
@@ -438,8 +483,6 @@ private:
         node->height = 1 + std::max(height(node->left), height(node->right));
         return node;
     }
-
-    
 };
 
 #endif

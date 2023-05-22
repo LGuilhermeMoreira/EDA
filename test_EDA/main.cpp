@@ -14,9 +14,9 @@ using namespace std;
 // montar o sistema de busca 
 int main()
 {
-    AVL_tree<CPF>* cpf_tree = build_tree_cpf(string_to_vector("data.csv"));
-    AVL_tree<Nome>* nome_tree = build_tree_nome(string_to_vector("data.csv"));
-    AVL_tree<Data>* data_tree = build_tree_data(string_to_vector("data.csv"));
+    AVL_tree<CPF>* cpf_tree = build_tree_cpf(string_to_vector("dataPeople.csv"));
+    AVL_tree<Nome>* nome_tree = build_tree_nome(string_to_vector("dataPeople.csv"));
+    AVL_tree<Data>* data_tree = build_tree_data(string_to_vector("dataPeople.csv"));
     system("cls||clear");
     while(true){
         cout << endl << "1 - add person" << endl
@@ -126,12 +126,30 @@ int main()
 
         else if(num == 8){
             system("cls||clear");
-            string datainicio, datafim;
-            cout << "Digite a data de inicio: ";
-            getline(cin, datainicio);
-            cout << "Digite a data de fim: ";
-            getline(cin, datafim);
-            data_tree->search(datainicio + " " + datafim, 'd');
+            int diaini, mesini, anoini;
+            int diafim, mesfim, anofim;
+            cout << "Digite o dia inicial: ";
+            cin >> diaini;
+            cin.ignore();
+            cout << "Digite o mes inicial: ";
+            cin >> mesini;
+            cin.ignore();
+            cout << "Digite o ano inicial: ";
+            cin >> anoini;
+            cin.ignore();
+            cout << "Digite o dia final: ";
+            cin >> diafim;
+            cin.ignore();
+            cout << "Digite o mes final: ";
+            cin >> mesfim;
+            cin.ignore();
+            cout << "Digite o ano final: ";
+            cin >> anofim;
+            cin.ignore();
+            string dataini = to_string(mesini) + "/" + to_string(diaini) + "/" + to_string(anoini);
+            string datafim = to_string(mesfim) + "/" + to_string(diafim) + "/" + to_string(anofim);
+            string stringData = dataini + " " + datafim;
+            data_tree->search(stringData,'d');
             std::cout << "=======================================" << std::endl;
         }
 
