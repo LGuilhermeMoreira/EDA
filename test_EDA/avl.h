@@ -44,6 +44,7 @@ public:
         root = _clear(root);
     }
 
+    // Mostra todos os nós da arvore
     void bshow() const
     {
         _bshow(root, "");
@@ -55,24 +56,28 @@ public:
         clear();
     }
 
-    // acessa as chaves do nó em ordem
-    void access_keys_inorder(void (*f)(int &key))
-    {
-        inorder_rec(root, f);
-    }
+    // // acessa as chaves do nó em ordem
+    // void access_keys_inorder(void (*f)(int &key))
+    // {
+    //     inorder_rec(root, f);
+    // }
 
-    void keys_as_vector(std::vector<int> &v) const
-    {
-        inorder_rec(root, v);
-    }
+    // // trasnforma uma arvore em um vetor ordenado
+    // void keys_as_vector(std::vector<int> &v) const
+    // {
+    //     inorder_rec(root, v);
+    // }
 
-    void _vector_to_tree(std::vector<T> v)
-    {
-        root = vector_to_tree_rec(v, 0, v.size() - 1);
-    }
+    // //transforma um vetor ordenado em uma arvore
+    // void _vector_to_tree(std::vector<T> v)
+    // {
+    //     root = vector_to_tree_rec(v, 0, v.size() - 1);
+    // }
 
+    // busca os nós de uma arvore
     void search(std::string key, char flag)
     {
+        // busca por cpf
         if (flag == 'c')
         {
             T cpf = T(key);
@@ -100,10 +105,13 @@ public:
                 }
             }
         }
-
+        // busca entre datas
         else if (flag == 'd')
         {
-            
+            /*
+            1/1/1990 1/1/2000
+
+            */
             /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
             std::vector<std::string> data = split(key, ' ');
             std::cout << data[0] << " " << data[1] << std::endl;
@@ -132,16 +140,45 @@ public:
                         if (reference->key == initial)
                         {
                             reference->pessoa->print();
+
+                            if (reference->next != nullptr)
+                            {
+                                Node<T> *aux = reference->next;
+                                while (aux != nullptr)
+                                {
+                                    aux->pessoa->print();
+                                    aux = aux->next;
+                                }
+                            }
+
                             pilha.push(reference->right);
                         }
                         else if (reference->key == final)
                         {
                             reference->pessoa->print();
+                            if (reference->next != nullptr)
+                            {
+                                Node<T> *aux = reference->next;
+                                while (aux != nullptr)
+                                {
+                                    aux->pessoa->print();
+                                    aux = aux->next;
+                                }
+                            }
                             pilha.push(reference->left);
                         }
                         else
                         {
                             reference->pessoa->print();
+                            if (reference->next != nullptr)
+                            {
+                                Node<T> *aux = reference->next;
+                                while (aux != nullptr)
+                                {
+                                    aux->pessoa->print();
+                                    aux = aux->next;
+                                }
+                            }
                             pilha.push(reference->left);
                             pilha.push(reference->right);
                         }
@@ -152,23 +189,35 @@ public:
 
         else if (flag == 'n')
         {
+            // busca por nomes
             /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
             T nome = T(key);
             Node<T> *node = root;
-            while (node != nullptr)
+            std::stack<Node<T> *> pilha;
+            pilha.push(node);
+            while (!pilha.empty())
             {
-                if (nome == node->key)
+                Node<T> *reference = pilha.top();
+                pilha.pop();
+
+                if (reference != nullptr)
                 {
-                    inorder_rec(node, nome);
-                    break;
-                }
-                else if (node->key > nome)
-                {
-                    node = node->left;
-                }
-                else
-                {
-                    node = node->right;
+                    if (nome > reference->key)
+                    {
+                        pilha.push(reference->right);
+                    }
+                    else if (nome < reference->key)
+                    {
+                        pilha.push(reference->left);
+                    }
+                    else
+                    {
+                        if (nome == reference->key)
+                        {
+                            inorder_rec(reference, nome);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -404,25 +453,25 @@ private:
         return nullptr;
     }
 
-    void inorder_rec(Node<T> *node, void (*f)(int &key))
-    {
-        if (node != nullptr)
-        {
-            inorder_rec(node->left, f);
-            f(node->key);
-            inorder_rec(node->right, f);
-        }
-    }
+    // void inorder_rec(Node<T> *node, void (*f)(int &key))
+    // {
+    //     if (node != nullptr)
+    //     {
+    //         inorder_rec(node->left, f);
+    //         f(node->key);
+    //         inorder_rec(node->right, f);
+    //     }
+    // }
 
-    void inorder_rec(Node<T> *node, std::vector<int> &v)
-    {
-        if (node != nullptr)
-        {
-            inorder_rec(node->left, v);
-            v.push_back(node->key);
-            inorder_rec(node->right, v);
-        }
-    }
+    // void inorder_rec(Node<T> *node, std::vector<int> &v)
+    // {
+    //     if (node != nullptr)
+    //     {
+    //         inorder_rec(node->left, v);
+    //         v.push_back(node->key);
+    //         inorder_rec(node->right, v);
+    //     }
+    // }
 
     void inorder_rec(Node<T> *node, T key)
     {
@@ -447,27 +496,27 @@ private:
         }
     }
 
-    void inorder_rec(Node<T> *node, T initial, T final)
-    {
-        if (node != nullptr)
-        {
-            inorder_rec(node->left, initial, final);
-            if (node->key >= initial && node->key <= final)
-            {
-                node->pessoa->print();
-                if (node->next != nullptr)
-                {
-                    Node<T> *aux = node->next;
-                    while (aux != nullptr)
-                    {
-                        aux->pessoa->print();
-                        aux = aux->next;
-                    }
-                }
-            }
-            inorder_rec(node->right, initial, final);
-        }
-    }
+    // void inorder_rec(Node<T> *node, T initial, T final)
+    // {
+    //     if (node != nullptr)
+    //     {
+    //         inorder_rec(node->left, initial, final);
+    //         if (node->key >= initial && node->key <= final)
+    //         {
+    //             node->pessoa->print();
+    //             if (node->next != nullptr)
+    //             {
+    //                 Node<T> *aux = node->next;
+    //                 while (aux != nullptr)
+    //                 {
+    //                     aux->pessoa->print();
+    //                     aux = aux->next;
+    //                 }
+    //             }
+    //         }
+    //         inorder_rec(node->right, initial, final);
+    //     }
+    // }
 
     //? cria as árvores, entretanto não trata os nós iguais
     Node<T> *vector_to_tree_rec(std::vector<T> &v, int start, int end)

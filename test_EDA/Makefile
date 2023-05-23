@@ -1,10 +1,5 @@
-run: main.o
-	g++ -o main main.o
-	./main
-
-main.o: main.cpp avl.h functions.h
-	g++ -c main.cpp
-	
-
+all:
+	g++ *.cpp -o main; ./main
 clean: 
 	rm *.o main
+

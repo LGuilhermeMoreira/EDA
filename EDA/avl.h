@@ -43,7 +43,8 @@ public:
     {
         root = _clear(root);
     }
-
+    
+    //Mostra todos os nós da arvore
     void bshow() const
     {
         _bshow(root, "");
@@ -61,18 +62,22 @@ public:
         inorder_rec(root, f);
     }
 
+    // trasnforma uma arvore em um vetor ordenado
     void keys_as_vector(std::vector<int> &v) const
     {
         inorder_rec(root, v);
     }
 
+    //transforma um vetor ordenado em uma arvore
     void _vector_to_tree(std::vector<T> v)
     {
         root = vector_to_tree_rec(v, 0, v.size() - 1);
     }
 
+    // busca os nós de uma arvore
     void search(std::string key, char flag)
     {
+        // busca por cpf
         if (flag == 'c')
         {
             T cpf = T(key);
@@ -100,7 +105,7 @@ public:
                 }
             }
         }
-
+        // busca entre datas
         else if (flag == 'd')
         {
             
@@ -152,6 +157,7 @@ public:
 
         else if (flag == 'n')
         {
+            //busca por nomes
             /*Percorrer até o nó aceitavel e dps usa uma inorder para percorrer a sub arvore*/
             T nome = T(key);
             Node<T> *node = root;
