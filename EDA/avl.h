@@ -303,9 +303,6 @@ private:
         return node;
     }
 
-    //* Funções recursivas para adicionar, mostrar ,remover
-    //* e limpar a arvore
-
     // adiciona um novo no na arvore recursivamente
     Node<T> *_add(Node<T> *p, T key, Pessoa *pessoa)
     {
@@ -322,14 +319,30 @@ private:
 
         if (key == p->key)
         {
-            Node<T> *new_node = new Node<T>();
-            new_node->key = key;
-            new_node->pessoa = pessoa;
-            new_node->height = p->height;
-            new_node->left = nullptr;
-            new_node->right = nullptr;
-            p->next = new_node;
-            return p;
+            if(p->next != nullptr){
+                Node<T>* aux = p->next;
+                while (aux->next != nullptr)
+                {
+                    aux = aux->next;
+                }
+                Node<T> *new_node = new Node<T>();
+                new_node->key = key;
+                new_node->pessoa = pessoa;
+                new_node->height = p->height;
+                new_node->left = nullptr;
+                new_node->right = nullptr;
+                aux->next = new_node;
+                return p;
+            }else{
+                Node<T> *new_node = new Node<T>();
+                new_node->key = key;
+                new_node->pessoa = pessoa;
+                new_node->height = p->height;
+                new_node->left = nullptr;
+                new_node->right = nullptr;
+                p->next = new_node;
+                return p;
+            }
         }
 
         if (key < p->key)
