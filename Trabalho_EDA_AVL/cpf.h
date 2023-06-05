@@ -5,14 +5,15 @@
 #include <string>
 #include <iostream>
 
-//todo: testar toda essa classe
+// criando a classe CPF
 
-//! sobrecarregar operadores de comparação  estão todos errados
 
 class CPF{
-private:
-    std::string cpf;
 public:
+    // atributo
+    std::string cpf;
+
+    // Construtores
     CPF(std::string cpf){
         this->cpf = cpf;
     }
@@ -23,6 +24,7 @@ public:
 
     CPF() = default;
 
+    // sobrecarga de operadores
     CPF &operator=(const CPF &c){
         this->cpf = c.cpf;
         return *this;

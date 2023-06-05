@@ -6,12 +6,15 @@
 #include <iostream>
 #include "functions.h"
 
-// todo: testar toda essa classe
+// criando classe Data
+
 class Data
 {
 public:
+    // atributos
     int dia, mes, ano;
     
+    // construtores
     Data(std::string dataCompleta)
     {
         std::vector<std::string> data = split(dataCompleta, '/');
@@ -32,6 +35,9 @@ public:
         this->mes = d.mes;
         this->ano = d.ano;
     }
+
+    // sobrecarga de operadores
+
     Data &operator=(const Data &d)
     {
         this->dia = d.dia;

@@ -9,6 +9,9 @@
 
 using namespace std;
 
+
+// arquivo destinado a criar funções essenciais e axuiliares para o funcionamente do projeto
+
 // lê o arquivo csv e transforma em uma string
 string file_to_string(const string& path) {
     auto ss = ostringstream{};

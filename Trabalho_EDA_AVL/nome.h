@@ -5,14 +5,18 @@
 
 class Nome {
     public:
+        //atributos
         std::string nome;
+        
+        //construtor 
         Nome(std::string nome){
             this->nome = nome;
         }
 
+        // construtor default
         Nome() = default;
 
-        //sobrecarrega o operador + para somar dois nomes
+        // Sobrecarga de operadores
         Nome operator+(const Nome& n){
             Nome novoNome;
             novoNome.nome = this->nome + " " + n.nome;
