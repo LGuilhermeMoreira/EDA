@@ -16,12 +16,13 @@ using std::numeric_limits;
  * Vertices sao representados pelos inteiros 0 a n-1.
  * Arestas sao pares ordenados de vertices.
 */
+template <typename T, typename U>
 class ListGraph {
 private:
     int _num_v;               // numero de vertices
     int _num_e;               // numero de arestas
     bool _directed;           // flag para indicar se eh direcionado
-    vector<list<Edge>> _adj;  // listas de adjacencias
+    vector<list<Edge<T,U>>> _adj;  // listas de adjacencias
 
 public:
     /**
@@ -37,7 +38,9 @@ public:
     }
 
     // Destrutor
-    ~ListGraph() = default;
+    ~ListGraph(){
+        _adj.clear();
+    }
 
     /**
      * Retorna o numero de vertices
@@ -61,21 +64,14 @@ public:
      * Insere uma nova aresta no grafo
      * @param edge A nova aresta
      */
-    void insert(const Edge& edge){
-        // criando o inicio da aresta
-        int source = edge.get_source();
-        // criando o fim da aresta
-        int dest = edge.get_dest();
-        // inserindo a aresta na lista de adjacencias
-        _adj[source].push_back(edge);
-        // checando se eh direcionado
-        if(_directed == true){
-            // criando a aresta reversa
-            Edge reverse_edge(dest, source, edge.get_weight());
-            // inserindo a aresta reversa na lista de adjacencias
-            _adj[dest].push_back(reverse_edge);
+    void insert(const Edge<T,U>& edge){
+        if(!_directed){
+            _adj[edge.get_source()].push_back(edge);
+            _adj[edge.get_dest()].push_back(Edge<T,U>(edge.get_dest(),edge.get_source(),edge.get_weight()));
         }
-        // incrementando o número de aresta
+        else{
+            _adj[edge.get_source()].push_back(edge);
+        }
         _num_e++;
     }
 
@@ -85,11 +81,9 @@ public:
      * @param dext O vertice de destino
      * @return true se existe uma aresta de source para dest
     */
-    bool is_edge(int source, int dest) const{
-        // percorrendo a lista de adjacencias
-        for(auto it = _adj[source].begin(); it != _adj[source].end(); it++){
-            // checando se o vertice de destino eh igual ao vertice de destino da aresta
-            if(it->get_dest() == dest){
+    bool is_edge(T source, T dest) const{
+        for(auto e : _adj[source]){
+            if(e.get_dest() == dest){
                 return true;
             }
         }
@@ -102,12 +96,14 @@ public:
      * @return A aresta entre os dois vertices ou uma aresta
      * com peso igual a numeric_limits<double>::infinity() se nao existe nenhuma aresta
      */
-    Edge get_edge(int source, int dest) const{
-        for(auto it = _adj[source].begin(); it != _adj[source].end();it++){
-            if(it->get_dest() == dest){
-                return *it;
+    Edge<T,U> get_edge(T source, T dest) const{
+        for(auto e : _adj[source]){
+            if(e.get_dest() == dest){
+                return e;
             }
         }
+        // retorna arestas falsas
+        return Edge<T,U>();
     }
 
     /**
@@ -115,44 +111,60 @@ public:
      * @param source O vertice origem
      * @return Uma const reference para a lista de adjacencias de um vertice
     */
-    list<Edge>& neighbors(int source){
-        return _adj[source];
-    }
-    const list<Edge>& neighbors(int source) const{
-        return _adj[source];
-    }
 
-    /** 
-     * Retorna um iterator para a primeira aresta adjacent ao vertice especificado.
-     * @param source O vertice origem
-     * @return Um iterador para as arestas adjacentes a source
-    */
-    list<Edge>::iterator begin(int source){
-        return _adj[source].begin();
-    }
-    list<Edge>::const_iterator begin(int source) const{
-        return _adj[source].begin();
-    }
-
-    /** Retorna um iterador uma posicao apos a ultima aresta 
-     * adjacente ao vertice especificado
-     * @param source O vertice origem
-     */
-    list<Edge>::iterator end(int source){
-        return _adj[source].end();
-    }
-    list<Edge>::const_iterator end(int source) const{
-        return _adj[source].end();
-    }
-
-   
-    // ListGraph(const ListGraph&){
-    //     // nao faz nada
+    // std::list<Edge<T,U>>& neighbors(T source){
+    //     return _adj[source];
     // }
 
-    // ListGraph& operator=(const ListGraph&){
-    //     // nao faz nada
+
+    // const std::list<Edge<T,U>>& neighbors(T source) const{
+    //     return _adj[source];
     // }
+
+
+    // typename std::list<Edge<T,U>>::iterator begin(T source){
+    //     return _adj[source].begin();
+    // }
+
+
+    // typename std::list<Edge<T,U>>::const_iterator begin(T source) const{
+    //     return _adj[source].begin();
+    // }
+
+
+    // typename std::list<Edge<T,U>>::iterator end(T source){
+    //     return _adj[source].end();
+    // }
+
+
+    // typename std::list<Edge<T,U>>::const_iterator end(T source) const{
+    //     return _adj[source].end();
+    // }
+
+    std::list<Edge<T,U>>& neighbors(int source){
+        return _adj.at(source);
+    }
+
+    const std::list<Edge<T,U>>& neighbors(int source) const{
+        return _adj.at(source);
+    }
+
+    typename std::list<Edge<T,U>>::iterator begin(int source){
+        return _adj.at(source).begin();
+    }
+
+    typename std::list<Edge<T,U>>::const_iterator begin(int source) const{
+        return _adj.at(source).begin();
+    }
+
+    typename std::list<Edge<T,U>>::iterator end(int source){
+        return _adj.at(source).end();
+    }
+
+    typename std::list<Edge<T,U>>::const_iterator end(int source) const{
+        return _adj.at(source).end();
+    }
+
 
 };
 
